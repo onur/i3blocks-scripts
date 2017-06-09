@@ -1,0 +1,9 @@
+[package]
+name = "i3blocks-scripts"
+version = "0.1.0"
+authors = ["Onur Aslan <onuraslan@gmail.com>"]
+
+[lib]
+name = "i3blocks"
+
+[dependencies]
