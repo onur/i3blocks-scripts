@@ -1,7 +1,12 @@
 [package]
 name = "i3blocks-scripts"
 version = "0.1.0"
-authors = ["Onur Aslan <onuraslan@gmail.com>"]
+description = "Small set of i3blocks scripts"
+authors = ["Onur Aslan <onur@onur.im>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/onur/i3blocks-scripts"
+documentation = "https://docs.rs/i3blocks-scripts"
 
 [lib]
 name = "i3blocks"
