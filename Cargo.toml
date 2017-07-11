@@ -20,6 +20,7 @@ script_time = ["time"]
 script_loadavg = []
 script_diskusage = []
 script_volume = ["regex"]
+script_memory = []
 
 [[bin]]
 name = "time"
@@ -36,3 +37,7 @@ required-features = ["script_diskusage"]
 [[bin]]
 name = "volume"
 required-features = ["script_volume"]
+
+[[bin]]
+name = "memory"
+required-features = ["script_memory"]
