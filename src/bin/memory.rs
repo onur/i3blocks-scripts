@@ -5,6 +5,9 @@ use std::fs::File;
 use std::io::Read;
 
 fn main() {
+    // This is less sane than 4cc48147891549b96dd01255bd84308dfc2d6cbe
+    // but it looks much cooler. It assumes /proc/meminfo always contains MemTotal and MemAvailable
+    // and MemTotal always comes before MemAvailable
     i3blocks::Script::new().on_refresh(|_| {
         File::open("/proc/meminfo")
             .and_then(|mut f| {
@@ -13,24 +16,12 @@ fn main() {
                 Ok(c)
             })
             .ok()
-            .map(|c| {
-                (
-                    // FIXME: get rid of unwraps
-                    c.lines()
-                        .filter(|l| l.starts_with("MemTotal"))
-                        .next()
-                        .and_then(|l| l.split_whitespace().nth(1))
-                        .and_then(|l| l.parse::<u64>().ok())
-                        .unwrap(),
-                    c.lines()
-                        .filter(|l| l.starts_with("MemAvailable"))
-                        .next()
-                        .and_then(|l| l.split_whitespace().nth(1))
-                        .and_then(|l| l.parse::<u64>().ok())
-                        .unwrap(),
-                )
-            })
-            .map(|m| 100 - m.1 * 100 / m.0)
+            .map(|c| c.lines()
+                        .filter(|l| l.starts_with("MemTotal") || l.starts_with("MemAvailable"))
+                        .map(|l| l.split_whitespace().nth(1).and_then(|l| l.parse::<u64>().ok())
+                                  .unwrap_or(1))
+                        .collect::<Vec<u64>>())
+            .map(|m| 100 - m[1] * 100 / m[0])
             .map(|p| if p > 75 {
                 format!("<span color='#B85335'>\u{f2db} {}%</span>", p)
             } else {
