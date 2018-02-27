@@ -53,5 +53,9 @@ fn main() {
         .on_refresh(|i| volume(i.instance.clone()))
         .on_right_click(|i| volume_control(VolumeControl::Toggle, i.instance.clone()))
         .on_scroll_up(|i| volume_control(VolumeControl::Up, i.instance.clone()))
-        .on_scroll_down(|i| volume_control(VolumeControl::Down, i.instance.clone()));
+        .on_scroll_down(|i| volume_control(VolumeControl::Down, i.instance.clone()))
+        .on_middle_click(|i| {
+            let _ = Command::new("pavucontrol").output();
+            volume(i.instance.clone())
+        });
 }
