@@ -14,6 +14,10 @@ name = "i3blocks"
 [dependencies]
 time = { version = "0.1", optional = true }
 regex = { version = "0.2", optional = true }
+reqwest = { version = "0.8", optional = true }
+serde = { version = "1.0", optional = true }
+serde_json = { version = "1.0", optional = true }
+serde_derive = { version = "1.0", optional = true }
 
 [features]
 script_time = ["time"]
@@ -21,6 +25,7 @@ script_loadavg = []
 script_diskusage = []
 script_volume = ["regex"]
 script_memory = []
+script_btcturk = ["reqwest", "serde", "serde_json", "serde_derive"]
 
 [[bin]]
 name = "time"
@@ -41,3 +46,7 @@ required-features = ["script_volume"]
 [[bin]]
 name = "memory"
 required-features = ["script_memory"]
+
+[[bin]]
+name = "btcturk"
+required-features = ["script_btcturk"]
