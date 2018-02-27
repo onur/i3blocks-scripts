@@ -32,9 +32,7 @@ fn main() {
             .and_then(|mut r| r.text().ok())
             .and_then(|t| parse_btcturk_data(&t))
             .map(|btc| {
-                if btc.last > 39000. {
-                    format!("<span color='#B85335'>\u{f15a} {}</span>", btc.last)
-                } else if btc.last < 36500. {
+                if btc.last < 36500. {
                     format!("<span color='3bb835'>\u{f15a} {}</span>", btc.last)
                 } else {
                     format!("\u{f15a} {}", btc.last)
