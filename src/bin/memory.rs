@@ -1,4 +1,3 @@
-
 extern crate i3blocks;
 
 use std::fs::File;
@@ -16,16 +15,24 @@ fn main() {
                 Ok(c)
             })
             .ok()
-            .map(|c| c.lines()
-                        .filter(|l| l.starts_with("MemTotal") || l.starts_with("MemAvailable"))
-                        .map(|l| l.split_whitespace().nth(1).and_then(|l| l.parse::<u64>().ok())
-                                  .unwrap_or(1))
-                        .collect::<Vec<u64>>())
+            .map(|c| {
+                c.lines()
+                    .filter(|l| l.starts_with("MemTotal") || l.starts_with("MemAvailable"))
+                    .map(|l| {
+                        l.split_whitespace()
+                            .nth(1)
+                            .and_then(|l| l.parse::<u64>().ok())
+                            .unwrap_or(1)
+                    })
+                    .collect::<Vec<u64>>()
+            })
             .map(|m| 100 - m[1] * 100 / m[0])
-            .map(|p| if p > 75 {
-                format!("<span color='#B85335'>\u{f2db} {}%</span>", p)
-            } else {
-                format!("\u{f2db} {}%", p)
+            .map(|p| {
+                if p > 75 {
+                    format!("<span color='#B85335'>\u{f2db} {}%</span>", p)
+                } else {
+                    format!("\u{f2db} {}%", p)
+                }
             })
     });
 }
