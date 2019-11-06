@@ -26,6 +26,8 @@ script_diskusage = []
 script_volume = ["regex"]
 script_memory = []
 script_btcturk = ["reqwest", "serde", "serde_json", "serde_derive"]
+script_cpuspeed = []
+script_battery = []
 
 [[bin]]
 name = "time"
@@ -50,3 +52,11 @@ required-features = ["script_memory"]
 [[bin]]
 name = "btcturk"
 required-features = ["script_btcturk"]
+
+[[bin]]
+name = "cpuspeed"
+required-features = ["script_cpuspeed"]
+
+[[bin]]
+name = "battery"
+required-features = ["script_battery"]
